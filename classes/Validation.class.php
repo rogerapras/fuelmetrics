@@ -80,8 +80,8 @@ class Validation {
         }
     }
     
-    public function passwordIstheSame($pass1, $pass2) {
-        if (($pass) === ($pass2)) {
+    public function passwordsAretheSame($pass1, $pass2) {
+        if (($pass1) === ($pass2)) {
             return true;
         } else {
             return false;

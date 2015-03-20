@@ -14,8 +14,8 @@ $messages = new Messages();
 $util = new Util();
 
 $email = filter_input(INPUT_POST, 'email');
-$password = filter_input(INPUT_POST, 'password1');
-$password = filter_input(INPUT_POST, 'password2');
+$password1 = filter_input(INPUT_POST, 'password1');
+$password2 = filter_input(INPUT_POST, 'password2');
 
 
 if ($util->isPost()) {
@@ -27,11 +27,10 @@ if ($util->isPost()) {
         if (!$validate->emailIsValid($email)) {
             $messages->addError('Email formatting is invalid.');
         } //else {
-
-           // if (!$validate->doesEmailExist($email)) {
-           //    $messages->addError('Email already exists in our database!');
-           //}
-        }
+        // if (!$validate->doesEmailExist($email)) {
+        //    $messages->addError('Email already exists in our database!');
+        //}
+        //}
     }
 
     if (!$validate->passwordIsNotEmpty($password1)) {
@@ -41,15 +40,15 @@ if ($util->isPost()) {
         if (!$validate->passwordIsLongEnough($password1)) {
             $messages->addError('Password must be eight characters or greater.');
         } else {
-        
+
             if (!$validate->passwordsAreTheSame($password1, $password2)) {
                 $messages->addError('Passwords must match.');
+            }
         }
     }
-
     if ($messages->hasErrors()) {
         $messages->displayErrorMsgs();
-        include './login.php';
+        include './signup.php';
         exit();
     }
 }
@@ -63,8 +62,13 @@ if ($util->isPost()) {
   echo "Login Failed.";
   }
  */
+$hashLink = sha1($email + $password1);
+if (!$validate->sendVerificationEmail($email, $password1, $hashLink)) {
+    $_SESSION['email'] = $email;
+    header('Location: emailVerify.php');
+} else {
+    header('Location: oops.php');
+}
 
-$_SESSION['loggedin'] = true;
-$_SESSION['email'] = $email;
-header('Location: admin.php');
+
 ?>
