@@ -12,8 +12,8 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        $_SESSION['loginPage'] = true;
-        $_SESSION['signupPage'] = false;
+        $_SESSION['signupPage'] = true;
+        $_SESSION['loginPage'] = false;
         include_once './header.php';
         
         if (!empty($_POST)) {
@@ -22,14 +22,21 @@ and open the template in the editor.
             $email = "";
         }
         ?>
-        
-        <h1>FuelMetrics.org Account log-in</h1>
-        <form action="logincheck.php" method="post">
+        <h1>FuelMetrics.org Account Sign-up</h1>
+        <form action="signupverify.php" method="post">
+            <?php
+            if (!empty($emailErrorMessage)) {
+                echo $emailErrorMessage;
+            }
+            ?>
             <label>E-Mail:</label><br />
             <input type="text" name="email" value="<?php echo $email; ?>" />
-            <br />
+            <br /><br />
             <label>Password:</label><br />
-            <input type="password" name="password" value="" />
+            <input type="password" name="password1" value="" />
+            <br />
+            <label>Retype Password:</label><br />
+            <input type="password" name="password2" value="" />
             <br /><br />
             <input type="submit" value="Submit" />
 

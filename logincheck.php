@@ -53,6 +53,8 @@ if ($database->checkUserLogin($email, $password)) {
 }
  */
  
+    $_SESSION['loggedin'] = true;
+    $_SESSION['email'] = $email;
+    header('Location: admin.php');
+
 ?>
-</body>
-</html>
