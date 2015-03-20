@@ -16,6 +16,7 @@ $util = new Util();
 $email = filter_input(INPUT_POST, 'email');
 $password1 = filter_input(INPUT_POST, 'password1');
 $password2 = filter_input(INPUT_POST, 'password2');
+$passwordhint = filter_input(INPUT_POST, 'passwordhint');
 
 
 if ($util->isPost()) {
@@ -63,7 +64,7 @@ if ($util->isPost()) {
   }
  */
 $hashLink = sha1($email + $password1);
-if (!$validate->sendVerificationEmail($email, $password1, $hashLink)) {
+if (!$validate->sendVerificationEmail($email, $password1, $hashLink, $passwordhint)) {
     $_SESSION['email'] = $email;
     header('Location: emailVerify.php');
 } else {

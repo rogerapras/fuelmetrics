@@ -49,13 +49,14 @@ class Database {
         $verified = false;
 
         $db = new PDO("mysql:host=localhost;dbname=phpclasswinter2015; port=3306;", "root", "");
-        $dbs = $db->prepare('insert into signup set email = :email, password =:password, hashLink = :hashLink, verified = :verified' );
+        $dbs = $db->prepare('insert into signup set email = :email, password =:password, hashLink = :hashLink, verified = :verified, passwordhint = :passwordhint' );
 
         // you must bind the data before you execute
         $dbs->bindParam(':email', $email, PDO::PARAM_STR);
         $dbs->bindParam(':password', $pass, PDO::PARAM_STR);
         $dbs->bindParam(':hashLink', $hashLink, PDO::PARAM_STR);
         $dbs->bindParam(':verified', $verified, PDO::PARAM_STR);
+        $dbs->bindParam(':passwordhint', $passwordhint, PDO::PARAM_STR);
 
         // When you execute remember that a rowcount means a change was made
         if ($dbs->execute() && $dbs->rowCount() > 0) {

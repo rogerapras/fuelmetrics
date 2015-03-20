@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 <?php if (!isset($_SESSION['loggedin'])){ session_start();} ?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <meta charset="UTF-8">
@@ -24,11 +19,7 @@ and open the template in the editor.
         ?>
         <h1>FuelMetrics.org Account Sign-up</h1>
         <form action="signupverify.php" method="post">
-            <?php
-            if (!empty($emailErrorMessage)) {
-                echo $emailErrorMessage;
-            }
-            ?>
+            
             <label>E-Mail:</label><br />
             <input type="text" name="email" value="<?php echo $email; ?>" />
             <br /><br />
@@ -37,6 +28,9 @@ and open the template in the editor.
             <br />
             <label>Retype Password:</label><br />
             <input type="password" name="password2" value="" />
+            <br /><br />
+            <label>Password Hint:</label><br />
+            <input type="text" name="passwordhint" value="" />
             <br /><br />
             <input type="submit" value="Submit" />
 
