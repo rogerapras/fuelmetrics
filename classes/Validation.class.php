@@ -80,6 +80,14 @@ class Validation {
         }
     }
     
+    public function passwordIstheSame($pass1, $pass2) {
+        if (($pass) === ($pass2)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public function passwordIsLongEnough($pass) {
         if ((strlen($pass) >= 8)) {
             return true;
