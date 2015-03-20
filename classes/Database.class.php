@@ -72,9 +72,7 @@ class Database {
 		"<a href='fuelmetrics.org/verify.php?verifycode=".$hashLink."'>Link</a>\n";       
 
         mail($to, $subject, $msg, 'From:'.$FMemail);
-        }
-?>
-            
+                  
             return true;
         } else {
             //something went wrong.
