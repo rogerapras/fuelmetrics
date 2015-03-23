@@ -2,6 +2,37 @@
 
 class Database {
 
+    public function displayReciepts($userID) {
+
+        $db = new PDO("mysql:host=localhost;dbname=phpclasswinter2015; port=3308;", "root", "");
+        $dbs = $db->prepare('SELECT * FROM reciepts WHERE userID = ' . $userID , ' ORDER BY date_entered SORT DESC');
+        if ($dbs->execute() && $dbs->rowCount() > 0) {
+            $reciepts = $dbs->fetchAll(PDO::FETCH_ASSOC);
+            echo '<table>';
+            echo '<tr>';
+            echo '<th>' . 'Reciept ID:' . '</th>';
+            echo '<th>' . 'Date of Purchase:' . '</th>';
+            echo '<th>' . 'Price per Gallon:' . '</th>';
+            echo '<th>' . 'Number of Gallons:' . '</th>';
+            echo '<th>' . 'Gas Station Name:' . '</th>';
+            echo '<th>' . 'Comments/Notes:' . '</th>';
+            echo '</tr>';
+            foreach ($reciepts as $value) {
+                echo '<tr>';
+                echo '<td>' . $value["recieptID"] . '</td>';
+                echo '<td>' . $value["dateOfPurchase"] . '</td>';
+                echo '<td>' . $value["pricePerGallon"] . '</td>';
+                echo '<td>' . $value["numberOfGallons"] . '</td>';
+                echo '<td>' . $value["gasStationName"] . '</td>';
+                echo '<td>' . $value["comments"] . '</td>';
+                echo '</tr>';
+            }
+            echo '</table>';
+        } else {
+            echo 'No results found';
+        }
+    }
+
     public function checkUserLogin($email, $pass) {
 
         // Encrypt the password before adding to database.
@@ -41,8 +72,8 @@ class Database {
             return 'Data was NOT added<br />';
         }
     }
-    
-        public function insertReciept($dateOfPurchase, $pricePerGallon, $numberOfGallons, $gasStationName, $gasStationStreet, $gasStationZip, $gasStationCity, $gasStationState) {
+
+    public function insertReciept($dateOfPurchase, $pricePerGallon, $numberOfGallons, $gasStationName, $gasStationStreet, $gasStationZip, $gasStationCity, $gasStationState) {
 
         $db = new PDO("mysql:host=localhost;dbname=phpclasswinter2015; port=3306;", "root", "");
         $dbs = $db->prepare('insert into reciepts set dateOfPurchase = :dateOfPurchase, pricePerGallon = :pricePerGallon, numberOfGallons = :numberOfGallons, gasStationName = :gasStationName, gasStationStreet = :gasStationStreet, gasStationZip = :gasStationZip, gasStationCity = :gasStationCity, gasStationState = :gasStationState');
@@ -64,15 +95,15 @@ class Database {
             return false;
         }
     }
-    
-        public function sendVerificationEmail($email, $pass, $hashLink) {
+
+    public function sendVerificationEmail($email, $pass, $hashLink) {
 
         // Encrypt the password before adding to database.
         $pass = sha1($pass);
         $verified = false;
 
         $db = new PDO("mysql:host=localhost;dbname=phpclasswinter2015; port=3306;", "root", "");
-        $dbs = $db->prepare('insert into signup set email = :email, password =:password, hashLink = :hashLink, verified = :verified, passwordhint = :passwordhint' );
+        $dbs = $db->prepare('insert into signup set email = :email, password =:password, hashLink = :hashLink, verified = :verified, passwordhint = :passwordhint');
 
         // you must bind the data before you execute
         $dbs->bindParam(':email', $email, PDO::PARAM_STR);
@@ -84,19 +115,19 @@ class Database {
         // When you execute remember that a rowcount means a change was made
         if ($dbs->execute() && $dbs->rowCount() > 0) {
             //send email.
-            
-	$name = 'FuelMetrics.org Sign-up';
-        $FMemail = 'do.not.reply@fuelmetrics.org';
-	$message = '';
-	$thank = "Thank you ".$name." for reaching out. Your message has been sent.";
-	$to = $email;
-	$subject = 'FuelMetrics.org Email Verification - Do not reply';
-	$msg = "This email was sent to you in order to verify the user's email address. \n\n".
-		"Click on the following link to verify &quot;".$email."&quot; and complete the sign-up process. \n\n".
-		"<a href='fuelmetrics.org/verify.php?verifycode=".$hashLink."'>Link</a>\n";       
 
-        mail($to, $subject, $msg, 'From:'.$FMemail);
-                  
+            $name = 'FuelMetrics.org Sign-up';
+            $FMemail = 'do.not.reply@fuelmetrics.org';
+            $message = '';
+            $thank = "Thank you " . $name . " for reaching out. Your message has been sent.";
+            $to = $email;
+            $subject = 'FuelMetrics.org Email Verification - Do not reply';
+            $msg = "This email was sent to you in order to verify the user's email address. \n\n" .
+                    "Click on the following link to verify &quot;" . $email . "&quot; and complete the sign-up process. \n\n" .
+                    "<a href='fuelmetrics.org/verify.php?verifycode=" . $hashLink . "'>Link</a>\n";
+
+            mail($to, $subject, $msg, 'From:' . $FMemail);
+
             return true;
         } else {
             //something went wrong.

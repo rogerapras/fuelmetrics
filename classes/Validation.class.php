@@ -10,13 +10,6 @@ class Validation {
         }
     }
     
-        public function fieldIsNotEmpty($fieldVar) {
-        if (!empty($fieldVar)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     public function emailIsValid($email) {
         if (filter_var($email, FILTER_VALIDATE_EMAIL) != false) {
