@@ -55,7 +55,7 @@ class Database {
         }
     }
 
-    public function insertUser($email, $pass) {
+    public function insertNewUser($email, $pass) {
 
         // Encrypt the password before adding to database.
         $pass = sha1($pass);
@@ -64,7 +64,9 @@ class Database {
         
         include './dbconnect.php';
         
-        $dbs = $db->prepare('insert into user_access set email = :email, password = :password, activationkey = :activationkey, activationstate = :activationstate');
+        $dbs = $db->prepare(  'insert into user_access set email = :email, '
+                            . 'password = :password, activationkey = :activationkey, '
+                            . 'activationstate = :activationstate, passwordhint = :passwordhint');
 
         // binding the data before the execute
         
@@ -72,6 +74,7 @@ class Database {
         $dbs->bindParam(':password', $pass, PDO::PARAM_STR);
         $dbs->bindParam(':activationkey', $activationkey, PDO::PARAM_STR);
         $dbs->bindParam(':activationstate', $activationstate, PDO::PARAM_STR);
+        $dbs->bindParam(':passwordhint', $passwordhint, PDO::PARAM_STR);
 
         // A successful execute: a rowcount means that a change was made
         
@@ -80,6 +83,44 @@ class Database {
         } else {
             return false;
         }
+    }
+    
+    public function newSignupEmail() {
+        
+        $to = $_SESSION['email'];
+        $link = $_SESSION['link'];
+        $subject = "New Account Verification";
+
+        $message = "
+        <html>
+        <head>
+        <title>FuelMetrics.org New Account Verification</title>
+        </head>
+        <body>
+        <br />
+        <a href='http://fuelmetrics.org/' ><img alt='logo' src='http://test.fuelmetrics.org/images/emaillogo.png' /></a><br /><br /><br />
+        <hr /><br /><br />
+        Hello and welcome to FuelMetrics,<br /><br />
+        Your FuelMetrics.org account is waiting for you! One more step will
+        verify your account so you can begin tracking your auto fuel consumption
+        and expenditures with our free and easy to use set of tools and charts.<br /><br />
+        Click the URL below or copy and paste it into your browser to confirm your
+        E-mail address and start using FuelMetrics.org.<br /><br /><br />
+        <a href='http://fuelmetrics.org/verify.php?activationkey=$link' >http://fuelmetrics.org/verify.php?activationkey=$link</a><br /><br /><br />
+        <hr /><br /><br />
+        [ $to ] will now be your official FuelMetrics sign-in ID, which you
+        will use to log in to your account.<br /><br />
+        Thanks!<br /><br />
+        &nbsp;&nbsp;&nbsp;-The FuelMetrics.org team<br /><br />
+        </body>
+        </html>
+        ";
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= 'From: <noreply@fuelmetrics.org>' . "\r\n";
+        //$headers .= 'Cc: email@example.com' . "\r\n";
+
+        mail($to,$subject,$message,$headers);
     }
 
     public function insertReciept($dateOfPurchase, $pricePerGallon, $numberOfGallons, $gasStationName, $gasStationStreet, $gasStationZip, $gasStationCity, $gasStationState) {
@@ -105,45 +146,4 @@ class Database {
             return false;
         }
     }
-
-    public function sendVerificationEmail($email, $pass, $hashLink) {
-
-        // Encrypt the password before adding to database.
-        $pass = sha1($pass);
-        $verified = false;
-
-        include './dbconnect.php';
-        
-        $dbs = $db->prepare('insert into signup set email = :email, password =:password, hashLink = :hashLink, verified = :verified, passwordhint = :passwordhint');
-
-        // you must bind the data before you execute
-        $dbs->bindParam(':email', $email, PDO::PARAM_STR);
-        $dbs->bindParam(':password', $pass, PDO::PARAM_STR);
-        $dbs->bindParam(':hashLink', $hashLink, PDO::PARAM_STR);
-        $dbs->bindParam(':verified', $verified, PDO::PARAM_STR);
-        $dbs->bindParam(':passwordhint', $passwordhint, PDO::PARAM_STR);
-
-        // When you execute remember that a rowcount means a change was made
-        if ($dbs->execute() && $dbs->rowCount() > 0) {
-            //send email.
-
-            $name = 'FuelMetrics.org Sign-up';
-            $FMemail = 'do.not.reply@fuelmetrics.org';
-            $message = '';
-            $thank = "Thank you " . $name . " for reaching out. Your message has been sent.";
-            $to = $email;
-            $subject = 'FuelMetrics.org Email Verification - Do not reply';
-            $msg = "This email was sent to you in order to verify the user's email address. \n\n" .
-                    "Click on the following link to verify &quot;" . $email . "&quot; and complete the sign-up process. \n\n" .
-                    "<a href='fuelmetrics.org/verify.php?verifycode=" . $hashLink . "'>Link</a>\n";
-
-            mail($to, $subject, $msg, 'From:' . $FMemail);
-
-            return true;
-        } else {
-            //something went wrong.
-            return false;
-        }
-    }
-
 }
