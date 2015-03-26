@@ -54,7 +54,7 @@ if ($util->isPost()) {
     }
 }
 /*
- 
+
   if ($database->checkUserLogin($email, $password)) {
   $_SESSION['loggedin'] = true;
   $_SESSION['email'] = $email;
@@ -63,19 +63,22 @@ if ($util->isPost()) {
   $_SESSION['loggedin'] = false;
   echo "Login Failed.";
   }
- 
+
  */
- 
+
 if ($database->insertNewUser($email, $password1)) {
     $_SESSION['email'] = $email;
     $_SESSION['pass'] = (sha1($password1));
     $_SESSION['link'] = (sha1($email . $password1));
+} else {
+    $_SESSION['email'] = $email;
+    header('Location: oops.php');
+}
+
+if (newSignupEmail()) {
     header('Location: emailverify.php');
 } else {
     $_SESSION['email'] = $email;
     header('Location: oops.php');
 }
- 
-
-
 ?>

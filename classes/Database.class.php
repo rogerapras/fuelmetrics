@@ -120,7 +120,11 @@ class Database {
         $headers .= 'From: <noreply@fuelmetrics.org>' . "\r\n";
         //$headers .= 'Cc: email@example.com' . "\r\n";
 
-        mail($to,$subject,$message,$headers);
+        if (mail($to,$subject,$message,$headers)){
+            return true;
+        }   else {
+            return false;
+        }
     }
 
     public function insertReciept($dateOfPurchase, $pricePerGallon, $numberOfGallons, $gasStationName, $gasStationStreet, $gasStationZip, $gasStationCity, $gasStationState) {
