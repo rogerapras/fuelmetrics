@@ -4,7 +4,8 @@ class Database {
 
     public function displayReciepts($userID) {
 
-        $db = new PDO("mysql:host=localhost;dbname=phpclasswinter2015; port=3308;", "root", "");
+        include './dbconnect.php';
+        
         $dbs = $db->prepare('SELECT * FROM reciepts WHERE userID = ' . $userID , ' ORDER BY date_entered SORT DESC');
         if ($dbs->execute() && $dbs->rowCount() > 0) {
             $reciepts = $dbs->fetchAll(PDO::FETCH_ASSOC);
@@ -37,8 +38,9 @@ class Database {
 
         // Encrypt the password before adding to database.
         $pass = sha1($pass);
-
-        $db = new PDO("mysql:host=localhost;dbname=phpclasswinter2015; port=3306;", "root", "");
+        
+        include './dbconnect.php';
+        
         $dbs = $db->prepare('SELECT * FROM signup WHERE email = :email and password = :password');
 
         // you must bind the data before you execute
@@ -57,25 +59,33 @@ class Database {
 
         // Encrypt the password before adding to database.
         $pass = sha1($pass);
+        $activationkey = sha1($email . $pass);
+        $activationstate = 0;
+        
+        include './dbconnect.php';
+        
+        $dbs = $db->prepare('insert into user_access set email = :email, password = :password, activationkey = :activationkey, activationstate = :activationstate');
 
-        $db = new PDO("mysql:host=localhost;dbname=phpclasswinter2015; port=3306;", "root", "");
-        $dbs = $db->prepare('insert into signup set email = :email, password =:password');
-
-        // you must bind the data before you execute
+        // binding the data before the execute
+        
         $dbs->bindParam(':email', $email, PDO::PARAM_STR);
         $dbs->bindParam(':password', $pass, PDO::PARAM_STR);
+        $dbs->bindParam(':activationkey', $activationkey, PDO::PARAM_STR);
+        $dbs->bindParam(':activationstate', $activationstate, PDO::PARAM_STR);
 
-        // When you execute remember that a rowcount means a change was made
+        // A successful execute: a rowcount means that a change was made
+        
         if ($dbs->execute() && $dbs->rowCount() > 0) {
-            return 'Data was added<br />';
+            return true;
         } else {
-            return 'Data was NOT added<br />';
+            return false;
         }
     }
 
     public function insertReciept($dateOfPurchase, $pricePerGallon, $numberOfGallons, $gasStationName, $gasStationStreet, $gasStationZip, $gasStationCity, $gasStationState) {
 
-        $db = new PDO("mysql:host=localhost;dbname=phpclasswinter2015; port=3306;", "root", "");
+        include './dbconnect.php';
+        
         $dbs = $db->prepare('insert into reciepts set dateOfPurchase = :dateOfPurchase, pricePerGallon = :pricePerGallon, numberOfGallons = :numberOfGallons, gasStationName = :gasStationName, gasStationStreet = :gasStationStreet, gasStationZip = :gasStationZip, gasStationCity = :gasStationCity, gasStationState = :gasStationState');
 
         // you must bind the data before you execute
@@ -102,7 +112,8 @@ class Database {
         $pass = sha1($pass);
         $verified = false;
 
-        $db = new PDO("mysql:host=localhost;dbname=phpclasswinter2015; port=3306;", "root", "");
+        include './dbconnect.php';
+        
         $dbs = $db->prepare('insert into signup set email = :email, password =:password, hashLink = :hashLink, verified = :verified, passwordhint = :passwordhint');
 
         // you must bind the data before you execute
