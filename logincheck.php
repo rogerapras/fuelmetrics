@@ -42,16 +42,16 @@ if ($util->isPost()) {
         exit();
     }
 }
-/*
+
 if ($database->checkUserLogin($email, $password)) {
     $_SESSION['loggedin'] = true;
     $_SESSION['email'] = $email;
-    header('Location: admin.php');
+    header('Location: editprofile.php');
 } else {
     $_SESSION['loggedin'] = false;
     echo "Login Failed.";
 }
- */
+ 
  
     $_SESSION['loggedin'] = true;
     $_SESSION['email'] = $email;

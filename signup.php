@@ -1,5 +1,7 @@
+<?php if (empty($_POST)) {
+    session_start();
+} ?>
 <!DOCTYPE html>
-<?php if (!isset($_SESSION['loggedin'])){ session_start();} ?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -10,7 +12,7 @@
         $_SESSION['signupPage'] = true;
         $_SESSION['loginPage'] = false;
         include_once './header.php';
-        
+
         if (!empty($_POST)) {
             $email = filter_input(INPUT_POST, 'email');
         } else {
@@ -19,7 +21,7 @@
         ?>
         <h1>FuelMetrics.org Account Sign-up</h1>
         <form action="signupverify.php" method="post">
-            
+
             <label>E-Mail:</label><br />
             <input type="text" name="email" value="<?php echo $email; ?>" />
             <br /><br />

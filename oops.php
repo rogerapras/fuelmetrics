@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -11,7 +12,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        echo '<h1>Oops! sorry ' . $_SESSION['email'] = $email . ', but a problem has occured.</h1>';
+        echo '<h1>Oops! sorry ' . $_SESSION['email'] = $email . ', but there was a problem  with the' . $_SESSION['problem'] . '</h1>';
         ?>
     </body>
 </html>

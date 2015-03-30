@@ -27,11 +27,11 @@ if ($util->isPost()) {
 
         if (!$validate->emailIsValid($email)) {
             $messages->addError('Email formatting is invalid.');
-        } //else {
-        // if (!$validate->doesEmailExist($email)) {
-        //    $messages->addError('Email already exists in our database!');
-        //}
-        //}
+        } else {
+         if ($database->doesEmailExist($email)) {
+            $messages->addError('Email already exists in our database!');
+        }
+      }
     }
 
     if (!$validate->passwordIsNotEmpty($password1)) {
@@ -66,19 +66,21 @@ if ($util->isPost()) {
 
  */
 
-if ($database->insertNewUser($email, $password1)) {
+if ($database->insertNewUser($email, $password1, $passwordhint)) {
     $_SESSION['email'] = $email;
     $_SESSION['pass'] = (sha1($password1));
-    $_SESSION['link'] = (sha1($email . $password1));
+    $_SESSION['link'] = (sha1($email));
 } else {
     $_SESSION['email'] = $email;
+    $_SESSION['problem'] = ' database INSERT.';
     header('Location: oops.php');
 }
 
-if (newSignupEmail()) {
+if ($database->newSignupEmail()) {
     header('Location: emailverify.php');
 } else {
     $_SESSION['email'] = $email;
+    $_SESSION['problem'] = ' verification email.';
     header('Location: oops.php');
 }
 ?>
