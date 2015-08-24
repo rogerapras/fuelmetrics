@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <script type="text/javascript">
+            var num = 0;
+           
+            window.onload = function() {
+                document.getElementById("forward").innerHTML.valueOf()
+            }
+
+            
+            var FM_json_profile = {
+                "label": {  "fname"     : "Enter your first name:",
+                            "lnname"    : "Enter your last name:",
+                            "zip"       : "Enter your zip code:",
+                            "address"   : "Enter your Street Address:",
+                            "caryear"   : "Enter your car year:",
+                            "carmake"   : "Enter your car make:",
+                            "carmodel"  : "Enter your car model:",
+                            "carmiles"  : "Enter your car's current mileage:",
+                            "age"       : "Enter your age: (optional)",
+                            "gender"    : "Enter your gender: (optional)"
+                        },
+                "field": {  "fname"     : "Enter your first name:",
+                            "lnname"    : "Enter your last name:",
+                            "zip"       : "Enter your zip code:",
+                            "address"   : "Enter your Street Address:",
+                            "caryear"   : "Enter your car year:",
+                            "carmake"   : "Enter your car make:",
+                            "carmodel"  : "Enter your car model:",
+                            "carmiles"  : "Enter your car's current mileage:",
+                            "age"       : "Enter your age: (optional)",
+                            "gender"    : "Enter your gender: (optional)"
+                        }
+                    };
+            
+            function formMoveForward(num) {
+                if ( num === 12 ){
+                    console.log("You can't go forward, you're already on the last form field!");
+                } else {
+                    document.getElementById( "lbl" ).innerHTML = FM_json_profile.label.[num];
+                    document.getElementById( "formField" ).innerHTML = FM_json_profile.field.[num];
+                    num++;
+                }
+            }
+        </script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="teststyle.css"/>
+        <title>Fuel Metrics test form</title>
+    </head>
+    <body>
+        <section id="backBtn"><a href="#" id="back"">BACK</a></section>
+        <section id="formFields">
+            <form action="profileTest.php" method="post">
+                <div id="lbl"></div>
+                <div id="formField"></div>
+                <br />
+            </form>
+        </section>
+        <section id="forwardBtn"><a href="#" id="forward" onclick="formMoveForward(num)">FORWARD</a></section>
+    </body>
+</html>

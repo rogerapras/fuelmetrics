@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <script type="text/javascript">
+            function button(a, b, c, d) {
+                document.getElementById(a).style.display = 'block';
+                document.getElementById(b).style.display = 'none';
+                document.getElementById(c).style.display = 'none';
+                document.getElementById(d).style.display = 'none';
+            }
+
+            function pagestart() {
+                document.getElementById("teammembers").style.display = 'block';
+                document.getElementById("screenshots").style.display = 'none';
+                document.getElementById("presentation").style.display = 'none';
+                document.getElementById("documentation").style.display = 'none';
+            }
+            window.onload = pagestart;
+        </script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <title>Fuel Metrics Development Site</title>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="header">
+                <img src="images/logo.png" id="logo" alt="fuelmetrics.org"/>
+                <p>Project&nbsp;&nbspDevelopment</p>
+                <div id="stripe"></div>
+            </div>
+            <div class="centeredcontainer">
+                <div class="buttoncontainer"><div class="buttons" id="team"><a href="#" onclick="button('teammembers', 'screenshots', 'presentation', 'documentation');
+                        return false;">Team Members</a></div></div>
+                <div class="buttoncontainer"><div class="buttons" id="screen"><a href="#" onclick="button('screenshots', 'presentation', 'documentation', 'teammembers');
+                        return false;">Screen Shots</a></div></div>
+                <div class="buttoncontainer"><div class="buttons" id="present"><a href="#" onclick="button('presentation', 'screenshots', 'teammembers', 'documentation');
+                        return false;">Presentation</a></div></div>
+                <div class="buttoncontainer"><div class="buttons" id="document"><a href="#" onclick="button('documentation', 'screenshots', 'presentation', 'teammembers');
+                        return false;">Documentation</a></div></div>
+            </div>
+            <br /><br /><br /><br />
+            <div class="centeredcontainer">
+                <div id="teammembers">
+                    <div class="profile">
+                        <div class="profiletext"><br />Quincy Williams</div>
+                        <div id="quephoto"></div>
+                        <div class="profileinfo">
+                            <hr></hr>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et sollicitudin augue. 
+                            Maecenas vel interdum dui. Aliquam fringilla, nibh ac tempus sagittis, elit mauris gravida 
+                            ante, a elementum arcu nibh bibendum risus. Proin vitae convallis arcu. In consequat auctor 
+                            mi id vulputate. Cras et sem ante. Nam ex ipsum, egestas sit amet turpis nec, semper 
+                            feugiat leo. Fusce lectus purus, condimentum fringilla lacinia ultrices, consequat nec 
+                            libero. Integer non felis id lorem ullamcorper lobortis. Duis nec aliquet nisl. Nullam ac 
+                            mauris eros. Aenean maximus consequat dolor in luctus. Sed venenatis convallis placerat. 
+                            Aenean vehicula lacinia lacus id semper. Donec luctus arcu et ante porta tempus.
+                        </div>
+                    </div>
+                    <div class="profile">
+                        <div class="profiletext">Brian MacDonald</div>
+                        <div id="briphoto"></div>
+                        <div class="profileinfo">
+                            <hr></hr>
+                            This is some text about Brian MacDonald. He is from Massachusetts but lives in Rhode Island.<br /><hr></hr>
+                            <ul>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                                <li>Vestibulum at justo vitae nulla tempor molestie sit amet sed magna.</li>
+                                <li>Morbi sollicitudin sapien in odio lacinia fringilla.</li>
+                            </ul>
+                            <ul>
+                                <li>Suspendisse pharetra purus in enim rutrum mattis.</li>
+                                <li>Vestibulum dapibus felis eu malesuada fermentum.</li>
+                                <li>Nullam id metus vitae ante aliquet volutpat.</li>
+                                <li>Suspendisse in massa facilisis, tempus nisi tincidunt, pellentesque neque.</li>
+                            </ul>
+                            <br />
+                            Nam ex ipsum, egestas sit amet turpis nec, semper 
+                            feugiat leo. Fusce lectus purus, condimentum fringilla lacinia ultrices, consequat nec 
+                            libero. Integer non felis id lorem ullamcorper lobortis. Duis nec aliquet nisl. Nullam ac 
+                            mauris eros. Aenean maximus consequat dolor in luctus. Sed venenatis convallis placerat.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="screenshots">
+                <div class="centeredcontainer">
+                    <div class="ssthumbs"></div><div class="ssthumbs"></div><div class="ssthumbs"></div><div class="ssthumbs"></div><br />
+                    <div class="ssthumbs"></div><div class="ssthumbs"></div><div class="ssthumbs"></div><div class="ssthumbs"></div><br />
+                    <div class="ssthumbs"></div><div class="ssthumbs"></div><div class="ssthumbs"></div><div class="ssthumbs"></div><br />
+                </div>
+            </div>
+            <div id="presentation">
+                <div class="centeredcontainer">
+                    <div id="prez"></div>
+                </div>
+
+            </div>
+            <div id="documentation"><p>Documentation</p></div></p>
+        </div>
+    </body>
+</html>

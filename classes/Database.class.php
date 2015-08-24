@@ -34,21 +34,6 @@ class Database {
         }
     }
 
-    public function doesEmailExist($email) {
-
-        include './classes/dbconnect.php';
-
-        $dbs = $db->prepare('SELECT * FROM user_access WHERE email = :email');
-
-        $dbs->bindParam(':email', $email, PDO::PARAM_INT);
-
-        if ($dbs->execute() && $dbs->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public function checkUserLogin($email, $pass) {
 
         $pass = sha1($pass);
@@ -187,6 +172,46 @@ class Database {
         $dbs->bindParam(':gasStationZip', $gasStationZip, PDO::PARAM_STR);
         $dbs->bindParam(':gasStationCity', $gasStationCity, PDO::PARAM_STR);
         $dbs->bindParam(':gasStationState', $gasStationState, PDO::PARAM_STR);
+
+        // When you execute remember that a rowcount means a change was made
+        if ($dbs->execute() && $dbs->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function insertUserProfile(  $profile_id, $first_name, $last_name, 
+                                        $gender, $dob_day, $dob_month, $dob_year, 
+                                        $location_state, $location_zip, 
+                                        $location_city ) {
+
+        include './classes/dbconnect.php';
+
+        $dbs = $db->prepare('insert into user_profiles set '
+                . 'profile_id = :profile_id, '
+                . 'first_name = :fname, '
+                . 'last_name = :lname, '
+                . 'gender = :gender, '
+                . 'dob_day = :dobDay, '
+                . 'dob_month = :dobMonth, '
+                . 'dob_year = :dobYear, '
+                . 'location_state = :location_state'
+                . 'location_zip = :location_zip'
+                . 'location_city = :location_city');
+
+        // you must bind the data before you execute
+        $dbs->bindParam(':profile_id', $profile_id, PDO::PARAM_STR);
+        $dbs->bindParam(':first_name', $first_name, PDO::PARAM_STR);    
+        $dbs->bindParam(':last_name', $last_name, PDO::PARAM_STR);
+        $dbs->bindParam(':gender', $gender, PDO::PARAM_STR);
+        $dbs->bindParam(':dob_day', $dob_day, PDO::PARAM_STR);
+        $dbs->bindParam(':dob_month', $dob_month, PDO::PARAM_STR);
+        $dbs->bindParam(':dob_year', $dob_year, PDO::PARAM_STR);
+        $dbs->bindParam(':location_state', $location_state, PDO::PARAM_STR);
+        $dbs->bindParam(':location_zip', $location_zip, PDO::PARAM_STR);
+        $dbs->bindParam(':location_city', $location_city, PDO::PARAM_STR);
+
 
         // When you execute remember that a rowcount means a change was made
         if ($dbs->execute() && $dbs->rowCount() > 0) {
