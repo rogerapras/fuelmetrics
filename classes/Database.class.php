@@ -40,7 +40,7 @@ class Database {
 
         include './classes/dbconnect.php';
 
-        $dbs = $db->prepare('SELECT * FROM signup WHERE email = :email and password = :password');
+        $dbs = $db->prepare('SELECT * FROM user_profiles WHERE email = :email and password = :password');
 
         // you must bind the data before you execute
         $dbs->bindParam(':email', $email, PDO::PARAM_STR);
@@ -54,13 +54,13 @@ class Database {
         }
     }
 
-    public function confirmActivation($activationKey) {
+    public function confirmActivation($activation_key) {
 
         include './classes/dbconnect.php';
 
         $results = array();
 
-        $dbs = $db->prepare("SELECT email FROM user_access WHERE activationkey = '$activationKey' limit 1");
+        $dbs = $db->prepare("SELECT email, activation_state FROM user_profiles WHERE activation_key = '$activation_key' limit 1");
 
         if ($dbs->execute() && $dbs->rowCount() > 0) {
             $results = $dbs->fetch(PDO::FETCH_ASSOC);
@@ -72,7 +72,7 @@ class Database {
 
         include './classes/dbconnect.php';
 
-        $dbs = $db->prepare("UPDATE user_access set activationstate = '1' WHERE activationkey = '$activationKey'");
+        $dbs = $db->prepare("UPDATE user_profiles set activation_state = '1' WHERE activation_key = '$activationKey'");
 
         // When you execute remember that a rowcount means a change was made
         if ($dbs->execute() && $dbs->rowCount() > 0) {
@@ -82,43 +82,65 @@ class Database {
         }
     }
 
-    public function insertNewUser($email, $pass, $passwordhint) {
-
-// Encrypt the password before adding to database.
-        $pass = sha1($pass);
-        $activationkey = sha1($email);
-        $activationstate = 0;
+    public function getHint($email) {
 
         include './classes/dbconnect.php';
 
-        $dbs = $db->prepare('insert into user_access set '
-                . 'email = :email, '
-                . 'password = :password, '
-                . 'activationkey = :activationkey, '
-                . 'activationstate = :activationstate, '
-                . 'passwordhint = :passwordhint');
+        $dbs = $db->prepare('SELECT hint FROM user_profiles WHERE email = :email');
 
-// binding the data before the execute
-
-        $dbs->bindParam(':email', $email, PDO::PARAM_STR);
-        $dbs->bindParam(':password', $pass, PDO::PARAM_STR);
-        $dbs->bindParam(':activationkey', $activationkey, PDO::PARAM_STR);
-        $dbs->bindParam(':activationstate', $activationstate, PDO::PARAM_STR);
-        $dbs->bindParam(':passwordhint', $passwordhint, PDO::PARAM_STR);
-
-// A successful execute: a rowcount means that a change was made
+        $dbs->bindParam(':email', $email, PDO::PARAM_INT);
 
         if ($dbs->execute() && $dbs->rowCount() > 0) {
-            return true;
+            return $hint;
         } else {
             return false;
         }
     }
 
+    public function hintEmail($email) {
+
+        $to = $_SESSION['email'];
+        $subject = "FuelMetrics.org password hint...";
+
+        $message = "
+<html>
+    <head>
+        <title>FuelMetrics.org - Forgot your password?</title>
+    </head>
+    <body>
+        <br />
+        <a href='http://fuelmetrics.org/' ><img alt='logo' src='http://test.fuelmetrics.org/images/emaillogo.png' /></a><br /><br /><br />
+        <hr /><br /><br />
+        Greetings,<br /><br />
+        A request for a password hint for the account associated with this email address.<br /><br />
+        Your password hint is:<p>$hint</p>
+        If you did not initiate the request, then simply disregard this email.
+        If this password hint still doesn't help you remember your password, then you can reset it using the link below.<br /><br />
+        Click the URL below or copy and paste it into your browser to reset your
+        password and resume using FuelMetrics.org.<br /><br /><br />
+        <a href='http://test.fuelmetrics.org/pwreset.php?resetaccount=$to' >http://test.fuelmetrics.org/pwreset.php?resetaccount=$to</a><br /><br /><br />
+        <hr /><br /><br />
+        Thanks, and have a great day!<br /><br />
+        &nbsp;&nbsp;&nbsp;-The FuelMetrics.org team<br /><br />
+    </body>
+</html>
+";
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= 'From: <noreply@fuelmetrics.org>' . "\r\n";
+        //$headers .= 'Cc: email@example.com' . "\r\n";
+
+        if (mail($to, $subject, $message, $headers)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public function newSignupEmail() {
 
         $to = $_SESSION['email'];
-        $link = $_SESSION['link'];
+        $link = (sha1($to));
         $subject = "New Account Verification";
 
         $message = "
@@ -156,24 +178,26 @@ class Database {
             return false;
         }
     }
+    
+    public function insertUserProfile($email, $pass, $password_hint) {
 
-    public function insertReciept($dateOfPurchase, $pricePerGallon, $numberOfGallons, $gasStationName, $gasStationStreet, $gasStationZip, $gasStationCity, $gasStationState) {
+        $activation_key = sha1($email);
 
         include './classes/dbconnect.php';
-
-        $dbs = $db->prepare('insert into reciepts set dateOfPurchase = :dateOfPurchase, pricePerGallon = :pricePerGallon, numberOfGallons = :numberOfGallons, gasStationName = :gasStationName, gasStationStreet = :gasStationStreet, gasStationZip = :gasStationZip, gasStationCity = :gasStationCity, gasStationState = :gasStationState');
-
-        // you must bind the data before you execute
-        $dbs->bindParam(':dateOfPurchase', $dateOfPurchase, PDO::PARAM_STR);
-        $dbs->bindParam(':pricePerGallon', $pricePerGallon, PDO::PARAM_STR);
-        $dbs->bindParam(':numberOfGallons', $numberOfGallons, PDO::PARAM_STR);
-        $dbs->bindParam(':gasStationName', $gasStationName, PDO::PARAM_STR);
-        $dbs->bindParam(':gasStationStreet', $gasStationStreet, PDO::PARAM_STR);
-        $dbs->bindParam(':gasStationZip', $gasStationZip, PDO::PARAM_STR);
-        $dbs->bindParam(':gasStationCity', $gasStationCity, PDO::PARAM_STR);
-        $dbs->bindParam(':gasStationState', $gasStationState, PDO::PARAM_STR);
-
-        // When you execute remember that a rowcount means a change was made
+        
+        $dbs = $db->prepare('insert into user_profiles set '
+                . 'email = :email, '
+                . 'password = :password, '
+                . 'password_hint = :password_hint, '
+                . 'activation_key = :activation_key');
+        
+// binding the data before the execute
+        $dbs->bindParam(':email', $email, PDO::PARAM_STR);
+        $dbs->bindParam(':password', $pass, PDO::PARAM_STR);
+        $dbs->bindParam(':password_hint', $password_hint, PDO::PARAM_STR);
+        $dbs->bindParam(':activation_key', $activation_key, PDO::PARAM_STR);
+        
+// A successful execute: a rowcount means that a change was made
         if ($dbs->execute() && $dbs->rowCount() > 0) {
             return true;
         } else {
@@ -181,37 +205,28 @@ class Database {
         }
     }
     
-    public function insertUserProfile(  $profile_id, $first_name, $last_name, 
-                                        $gender, $dob_day, $dob_month, $dob_year, 
-                                        $location_state, $location_zip, 
-                                        $location_city ) {
-
+        public function updateUserProfile($email, $first_name, $last_name, $gender, $dob, $location_zip, $location_city, $location_state) {
+            
         include './classes/dbconnect.php';
 
-        $dbs = $db->prepare('insert into user_profiles set '
-                . 'profile_id = :profile_id, '
-                . 'first_name = :fname, '
-                . 'last_name = :lname, '
-                . 'gender = :gender, '
-                . 'dob_day = :dobDay, '
-                . 'dob_month = :dobMonth, '
-                . 'dob_year = :dobYear, '
-                . 'location_state = :location_state'
-                . 'location_zip = :location_zip'
-                . 'location_city = :location_city');
-
-        // you must bind the data before you execute
-        $dbs->bindParam(':profile_id', $profile_id, PDO::PARAM_STR);
-        $dbs->bindParam(':first_name', $first_name, PDO::PARAM_STR);    
+        $dbs = $db->prepare("UPDATE user_profiles set "
+                . "first_name = :first_name, "
+                . "last_name = :last_name, "
+                . "gender = :gender, "
+                . "dob = :dob, "
+                . "location_zip = :location_zip, "
+                . "location_city = :location_city, "
+                . "location_state = :location_state "                    
+                . "WHERE email = :email");
+        
+        $dbs->bindParam(':email', $email, PDO::PARAM_STR);
+        $dbs->bindParam(':first_name', $first_name, PDO::PARAM_STR);
         $dbs->bindParam(':last_name', $last_name, PDO::PARAM_STR);
         $dbs->bindParam(':gender', $gender, PDO::PARAM_STR);
-        $dbs->bindParam(':dob_day', $dob_day, PDO::PARAM_STR);
-        $dbs->bindParam(':dob_month', $dob_month, PDO::PARAM_STR);
-        $dbs->bindParam(':dob_year', $dob_year, PDO::PARAM_STR);
-        $dbs->bindParam(':location_state', $location_state, PDO::PARAM_STR);
+        $dbs->bindParam(':dob', $dob, PDO::PARAM_STR);
         $dbs->bindParam(':location_zip', $location_zip, PDO::PARAM_STR);
         $dbs->bindParam(':location_city', $location_city, PDO::PARAM_STR);
-
+        $dbs->bindParam(':location_state', $location_state, PDO::PARAM_STR);
 
         // When you execute remember that a rowcount means a change was made
         if ($dbs->execute() && $dbs->rowCount() > 0) {
@@ -220,5 +235,4 @@ class Database {
             return false;
         }
     }
-
 }
