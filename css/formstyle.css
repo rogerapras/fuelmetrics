@@ -1,0 +1,33 @@
+	
+body {
+    background-color: #cc0000;
+}
+
+.input_field {
+        color: #FFFFFF;
+	font-size: 1.3em;
+	font-weight: 200;
+	font-family: 'Open Sans Condensed', sans-serif, arial;
+	text-shadow: 0px 2px 3px #000000;
+	font-style:italic;
+        padding-left: 15px;
+	float: left;
+	clear:both;
+	letter-spacing: .3em;
+        width: 20%;
+	position:relative;
+	height: 40px;
+	min-width: 60px;
+	background: #333;
+	background-color: #585757;
+	background:url(svg/field_bg.svg);
+        background-repeat: repeat-x;
+	margin: 10px; 
+	box-shadow: inset 0px 4px 8px #000000;
+	-moz-box-shadow: inset 0px 4px 8px #000000;
+	-webkit-box-shadow: inset 0px 4px 8px #000000;
+	-o-box-shadow: inset 0px 4px 8px #000000;
+	border-radius: 8px;
+	border: 2px solid #fff;
+}
+

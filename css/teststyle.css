@@ -1,0 +1,199 @@
+html,body {
+    background-color: #9DBEE4;
+    background-image: url(images/bg.png);
+    margin:0;
+    padding:0;
+    height: 100%;
+}
+
+#wrapper {
+    height: 100%;
+    min-height: 100%;
+    box-shadow: inset 0px 0px 150px rgba(1, 33, 66, .8);
+}
+
+#logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#stripe {
+    background-image: url(images/stripe.png);
+    width: 100%;
+    height: 26px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centeredcontainer { 
+    width: 950px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttoncontainer {
+    position: inherit;
+    margin: 5px 10px 0px 10px;
+    border-radius: 50px;
+    float: left;
+    text-align: center;
+    background-color: #0f79b7;
+    box-shadow: 0px 1px 3px rgba(250, 250, 250, .5), inset 2px 2px 3px rgba(0, 0, 0, .5);
+    text-align: center;
+}
+
+.buttoncontainer:hover {
+        margin: -1px 10px 0px 10px;
+        background-color: #003366;
+	-webkit-transition: all .1s ease-in-out;
+	-moz-transition: all .1s ease-in-out;
+	-ms-transition: all .1s ease-in--out;
+	-o-transition: all .1s ease-in-out;
+	transition: all .1s ease-in-out;
+}
+
+.buttons {
+    position: inherit;
+    margin: 15px;
+    color: rgba(255, 255, 255, 1);
+    letter-spacing: 6px;
+    text-shadow: 0px 1px 1px rgba(10, 10, 10, .6);
+    font-family: 'Century Gothic';
+    font-size: 16px;
+    text-decoration: none;
+}
+
+a:link {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 1);
+}
+a:visited {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 1);
+}
+a:hover {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 1);
+}
+a:active {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 1);
+}
+
+#content {
+    clear: both;
+    font-family: 'Century Gothic';
+    font-size: 16px;
+    text-decoration: none;   
+}
+
+.profile {
+    background-image: url(images/bg1.png);
+    width: 400px;
+    height: 450px;
+    float: left;
+    margin-left: 30px;
+    background-color: #0f79b7;
+    text-align: left;
+    color: #FFFFFF;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 200;
+    font-family: 'Century Gothic';
+    text-shadow: 0px 2px 3px #000000;
+    letter-spacing: 5px;
+    border-radius: 4px;
+    box-shadow: 0px 1px 3px rgba(250, 250, 250, .5), inset 2px 2px 3px rgba(0, 0, 0, .5);
+}
+
+.profiletext {
+    position: relative;
+    margin-top: 100px;
+    margin-left: -120px;
+    top: 10px;
+    left: 10px;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: 200;
+    font-family: 'Century Gothic';
+    text-shadow: 0px 2px 3px #000000;
+    text-align: left;
+    float: left;
+    letter-spacing: 5px;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+#quephoto {
+    background-image: url(images/que.png);
+    width: 360px;
+    height: 250px;
+    background-color: rgba(250, 250, 250, .5);
+    text-align: left;
+    margin-left: 40px;
+    border-radius: 8px;
+}
+
+#briphoto {
+    background-image: url(images/bri.png);
+    width: 360px;
+    height: 250px;
+    background-color: rgba(250, 250, 250, .5);
+    text-align: left;
+    margin-left: 40px;
+    border-radius: 8px;
+}
+
+.profileinfo {
+    overflow: auto;
+    padding: 10px;
+    font-size: 13px;
+    width: 380px;
+    height: 170px;
+    background-color: rgba(0, 51, 102, .8);
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 2px;
+    border-radius: 8px;
+    letter-spacing: 3px;
+    box-shadow: inset 0px 0px 100px rgba(1, 33, 66, .3);
+}
+
+.ssthumbs {
+    border-radius: 8px;
+    margin: 17px;
+    float: left;
+    height: 150px;
+    width: 200px;
+    background-color: rgba(250, 250, 250, .5);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, .8)
+}
+
+#prez {
+    border-radius: 8px;
+    margin-left: 125px;
+    margin-top: 25px;
+    float: left;
+    height: 366px;
+    width: 650px;
+    background-color: rgba(250, 250, 250, .5);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, .8)
+}
+
+p {
+    margin-top: 1px;
+    margin-bottom: 1px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 200;
+    font-family: 'Century Gothic';
+    text-shadow: 0px 4px 6px #000000;
+    letter-spacing: 20px;	
+}

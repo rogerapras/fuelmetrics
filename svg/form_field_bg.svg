@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="409.4px" height="63.035px" viewBox="-3.113 -4.151 409.4 63.035" enable-background="new -3.113 -4.151 409.4 63.035"
+	 xml:space="preserve">
+<rect x="-3.113" y="-4.151" fill="#5B5C5C" width="409.4" height="63.035"/>
+<g>
+	
+		<rect x="-6.913" y="-48.133" transform="matrix(0.7071 0.7071 -0.7071 0.7071 20.5487 5.1255)" fill="#4F4F4F" width="22" height="151"/>
+	
+		<rect x="388.088" y="-48.134" transform="matrix(0.7071 0.7071 -0.7071 0.7071 136.2413 -274.1822)" fill="#4F4F4F" width="22" height="151"/>
+	
+		<rect x="49.517" y="-48.133" transform="matrix(0.7071 0.7071 -0.7071 0.7071 37.078 -34.7769)" fill="#4F4F4F" width="22" height="151"/>
+	
+		<rect x="105.945" y="-48.133" transform="matrix(0.7071 0.7071 -0.7071 0.7071 53.6067 -74.6789)" fill="#4F4F4F" width="22" height="151"/>
+	
+		<rect x="162.373" y="-48.133" transform="matrix(0.7071 0.7071 -0.7071 0.7071 70.1355 -114.5811)" fill="#4F4F4F" width="22" height="150.999"/>
+	
+		<rect x="218.803" y="-48.134" transform="matrix(0.7071 0.7071 -0.7071 0.7071 86.6588 -154.4796)" fill="#4F4F4F" width="22" height="151"/>
+	
+		<rect x="331.659" y="-48.133" transform="matrix(0.7071 0.7072 -0.7072 0.7071 119.7299 -234.2944)" fill="#4F4F4F" width="21.999" height="150.999"/>
+	
+		<rect x="275.23" y="-48.134" transform="matrix(0.7071 0.7071 -0.7071 0.7071 103.1861 -194.38)" fill="#4F4F4F" width="22" height="151"/>
+</g>
+<g id="Layer_2" display="none">
+	<g display="inline">
+		<g>
+			
+				<image overflow="visible" opacity="0.6" enable-background="new    " width="254" height="217" xlink:href="D:\webdesign\fuelmetrics\193C7F9F.png"  transform="matrix(0.2361 0 0 0.2361 295.4482 4.2827)">
+			</image>
+			<g>
+				<path fill="#4C4C4D" d="M351.627,44.988h-40.913c-3.047,0-5.52-2.471-5.52-5.52V14.102c0-3.049,2.473-5.52,5.52-5.52h40.913
+					V44.988z"/>
+				<path fill="none" stroke="#0E9948" stroke-width="2" stroke-miterlimit="10" d="M351.627,44.988h-40.913
+					c-3.047,0-5.52-2.471-5.52-5.52V14.102c0-3.049,2.473-5.52,5.52-5.52h40.913V44.988z"/>
+			</g>
+		</g>
+		<g>
+			<circle fill="#4C4C4D" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" cx="326.2" cy="26.785" r="13.091"/>
+			<polygon fill="#FFFFFF" points="331.676,19.883 324.114,31.58 320.29,27.111 318.048,28.998 324.384,35.688 334.353,21.67 			"/>
+		</g>
+	</g>
+</g>
+</svg>
